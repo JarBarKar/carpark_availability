@@ -43,10 +43,11 @@ class User(db.Model):
             result[column] = getattr(self, column)
         return result
 
-def token_check(f):
+def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
+        #check if there is token in header
         if "x-access-token" in request.headers:
             token = request.headers["x-access-token"]
         if not token:
@@ -55,8 +56,9 @@ def token_check(f):
                     "message": "There is no token!"
                 }
             ), 401
+        #verify that token is valid
         try:
-            data = jwt.decode(token, app.config['SECRET_KEY'])
+            data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=['HS256'])
             user = User.query.filter_by(public_id= data['public_id']).first()
         except:
             return jsonify(
@@ -66,6 +68,8 @@ def token_check(f):
             ), 401
 
         return f(user, *args, **kwargs)
+
+    return decorated
 
 
 ### Start of API points for User ###
@@ -91,17 +95,17 @@ def create_user():
         ), 500
 
 
-@app.route("/user", methods=['GET'])
-#create user
-def query_users():
-    all_users = User.query.all()
-    users = [user.to_dict() for user in all_users]
-
-    if users:
+@app.route("/user/<public_id>", methods=['GET'])
+@token_required
+#query user's detail
+def query_user(user,public_id):
+    user_data = User.query.filter_by(public_id=public_id).first()
+    user_retrieved = user_data.to_dict()
+    if user_retrieved:
         return jsonify(
             {
-                "message": "All users' details are retrieved",
-                "data": users
+                "message": f"User's details have been retrieved successfully",
+                "data": user_retrieved
             }
         ), 200
     return jsonify(
@@ -126,7 +130,8 @@ def login_user():
         token = jwt.encode({'public_id': user.public_id, 'exp':datetime.datetime.utcnow()+ datetime.timedelta(minutes=60)}, app.config['SECRET_KEY'])
         return jsonify(
             {
-                "token": token
+                "token": token,
+                "public_id": user.public_id
             }
         ), 200
     return make_response("Password is wrong, please try again.", 401, {"WWW-Authenticate": "Basic realm='Login required!'"})
