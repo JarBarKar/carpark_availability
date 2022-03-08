@@ -1,10 +1,4 @@
 To do tasks:
 
-1) Add "Contact" optional into class and DB
-2) Finish up the token authentication
-3) Clarify with meiyuan on point 3
-4) Update ReadME on the part that the path for SQLite must update to user's PC directory
-5) Decide if wanna migrate to mySQL instead
-6) Create requirement.txt file for libraries and dependencies
-7) Complete point 4 on carpark availability
-8) Create POSTMAN collection for easier testing
+1) Create requirement.txt file for libraries and dependencies
+2) Create POSTMAN collection for easier testing
