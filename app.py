@@ -45,10 +45,15 @@ class User(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
+### Class User ###
 
+
+### Auto-initate SQL DB and table once app.py launched ###
 db.create_all()
 db.session.commit()
+### Auto-initate SQL DB and table once app.py launched ###
 
+### Create a wrapper for token authentication ###
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -76,11 +81,11 @@ def token_required(f):
         return f(user, *args, **kwargs)
 
     return decorated
+### Create a wrapper for token authentication ###
 
 
-### Start of API points for User ###
+### Start of API points for User creation ###
 @app.route("/user", methods=['POST'])
-#create user
 def create_user():
     data = request.get_json()
     if "contact_number" not in data.keys():
@@ -101,47 +106,10 @@ def create_user():
                 "message": "Account creation failed."
             }
         ), 500
+### End of API points for User creation ###
 
 
-@app.route("/user/<public_id>", methods=['GET'])
-@token_required
-#query user's detail
-def query_user(user,public_id):
-    user_data = User.query.filter_by(public_id=public_id).first()
-    user_retrieved = user_data.to_dict()
-    if user_retrieved:
-        return jsonify(
-            {
-                "message": f"User's details have been retrieved successfully",
-                "data": user_retrieved
-            }
-        ), 200
-    return jsonify(
-        {
-            "message": "There are no users retrieved"
-        }
-    ), 500
-
-@app.route("/car", methods=['GET'])
-@token_required
-#Get Carpark Availability
-def get_car(user):
-    data = requests.get("https://api.data.gov.sg/v1/transport/carpark-availability")
-    if data.status_code!=200:
-        return jsonify(
-            {
-                "message": "Request unsuccessful."
-            }
-        ), data.status_code
-    else:
-        return jsonify(
-            {
-                "data": data.json()
-            }
-        ), 200
-
-    
-
+### Start of API points for User login ###
 @app.route("/login")
 #login user
 def login_user():
@@ -163,6 +131,51 @@ def login_user():
             }
         ), 200
     return make_response("Password is wrong, please try again.", 401, {"WWW-Authenticate": "Basic realm='Login required!'"})
+### End of API points for User login ###
+
+
+### Start of API points for querying user detail ###
+@app.route("/user/<public_id>", methods=['GET'])
+@token_required
+#query user's detail
+def query_user(user,public_id):
+    user_data = User.query.filter_by(public_id=public_id).first()
+    user_retrieved = user_data.to_dict()
+    if user_retrieved:
+        return jsonify(
+            {
+                "message": f"User's details have been retrieved successfully",
+                "data": user_retrieved
+            }
+        ), 200
+    return jsonify(
+        {
+            "message": "There are no users retrieved"
+        }
+    ), 500
+### End of API points for querying user detail ###
+
+
+### Start of API points for querying carpark availability ###
+@app.route("/car", methods=['GET'])
+@token_required
+#Get Carpark Availability
+def get_car(user):
+    data = requests.get("https://api.data.gov.sg/v1/transport/carpark-availability")
+    if data.status_code!=200:
+        return jsonify(
+            {
+                "message": "Request unsuccessful."
+            }
+        ), data.status_code
+    else:
+        return jsonify(
+            {
+                "data": data.json()
+            }
+        ), 200
+### End of API points for querying carpark availability ###
+
 
 
 if __name__ == '__main__':
