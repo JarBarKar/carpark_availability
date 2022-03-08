@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
 from functools import wraps
+import requests
 
 
 app = Flask(__name__)
@@ -23,14 +24,16 @@ class User(db.Model):
     first_name = db.Column(db.String(64), nullable=False)
     last_name = db.Column(db.String(64), nullable=False)
     password= db.Column(db.String(64), nullable=False)
+    contact_number = db.Column(db.Integer, nullable=True)
 
 
-    def __init__(self, email, public_id, first_name, last_name, password):
+    def __init__(self, email, public_id, first_name, last_name, password, contact_number):
         self.email = email
         self.public_id = public_id
         self.first_name = first_name
         self.last_name = last_name
         self.password = password
+        self.contact_number = contact_number
 
     def to_dict(self):
         """
@@ -42,6 +45,9 @@ class User(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
+
+db.create_all()
+db.session.commit()
 
 def token_required(f):
     @wraps(f)
@@ -77,9 +83,11 @@ def token_required(f):
 #create user
 def create_user():
     data = request.get_json()
+    if "contact_number" not in data.keys():
+        data["contact_number"] = None
     try:
         hashed_password = generate_password_hash(data["password"], method="sha256")
-        new_user = User(email=data["email"],public_id=str(uuid.uuid4()), first_name=data["first_name"], last_name = data["last_name"],  password=hashed_password)
+        new_user = User(email=data["email"],public_id=str(uuid.uuid4()), first_name=data["first_name"], last_name = data["last_name"],  password=hashed_password, contact_number=data["contact_number"])
         db.session.add(new_user)
         db.session.commit()
         return jsonify(
@@ -113,6 +121,26 @@ def query_user(user,public_id):
             "message": "There are no users retrieved"
         }
     ), 500
+
+@app.route("/car", methods=['GET'])
+@token_required
+#Get Carpark Availability
+def get_car(user):
+    data = requests.get("https://api.data.gov.sg/v1/transport/carpark-availability")
+    if data.status_code!=200:
+        return jsonify(
+            {
+                "message": "Request unsuccessful."
+            }
+        ), data.status_code
+    else:
+        return jsonify(
+            {
+                "data": data.json()
+            }
+        ), 200
+
+    
 
 @app.route("/login")
 #login user
