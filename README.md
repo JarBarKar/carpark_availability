@@ -94,7 +94,7 @@ Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/user/<PUBLIC_ID>
 Type of request->GET<br>
 Header needed:<br>
 Key: x-access-token<br>
-Value:<TOKEN><br>
+Value:-TOKEN-<br>
 
 Input (header)<br>
 Key: x-access-token<br>
@@ -131,7 +131,7 @@ Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/car<br>
 Type of request->GET<br>
 Header needed:<br>
 Key: x-access-token<br>
-Value:<TOKEN><br>
+Value:-TOKEN-<br>
 
 Input (header)<br>
 Key: x-access-token<br>
@@ -163,3 +163,5 @@ Fail Output<br>
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+<b>*Note that the inputted values are placeholder, such as token value and public ID
