@@ -55,7 +55,7 @@ Success Output<br>
     "message": "Congrats Aaron! Your account has been created."
 }
 
-Fail Output
+Fail Output<br>
 {
     "message": "Account creation failed."
 }
@@ -116,7 +116,7 @@ Success Output<br>
         "public_id": "e8e1f418-1100-41be-b823-36bc6ad34da1"
     },
     "message": "User's details have been retrieved successfully"
-}<br>
+}<br><br>
 
 Fail Output<br>
 {
