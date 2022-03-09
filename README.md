@@ -26,31 +26,31 @@ How to interact with the api:
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-<b>Create User</b>:
-Description-> Register a new user in the system
-Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/user
-Type of request->POST
+<b>Create User</b>:<br>
+Description-> Register a new user in the system<br>
+Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/user<br>
+Type of request->POST<br>
 
-Input
+Input<br>
 {
     "email": STRING,
     "first_name": STRING,
     "last_name": STRING,
     "password": STRING,
     "contact_number": INT
-}
+}<br><br>
 
-Example Input
+Example Input<br>
 {
     "email": "aaron@gmail.com",
     "first_name": "Aaron",
     "last_name": "Tan",
     "password": "password"
     "contact_number": 99911122
-}
+}<br><br>
 
 
-Success Output
+Success Output<br>
 {
     "message": "Congrats Aaron! Your account has been created."
 }
@@ -63,49 +63,49 @@ Fail Output
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-<b>User Login:</b>
-Description-> Login username/email and password. A uniquely generated public_id and JWT Token will return upon successful login. Token is only available for 60min. Public_ID will be used in place of email to access user's detail route so that the frontend don't need to pass in email (sensitive data) to backend for processing.
-Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/login
-Type of request->GET, Basic Authorization(in Postman app)
+<b>User Login:</b><br>
+Description-> Login username/email and password. A uniquely generated public_id and JWT Token will return upon successful login. Token is only available for 60min. Public_ID will be used in place of email to access user's detail route so that the frontend don't need to pass in email (sensitive data) to backend for processing.<br>
+Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/login<br>
+Type of request->GET, Basic Authorization(in Postman app)<br>
 
-Input
-Username: <YOUR EMAIL>
-Password: <YOUR PASSWORD>
+Input<br>
+Username: <YOUR EMAIL><br>
+Password: <YOUR PASSWORD><br>
 
-Example Input
-Username: aaron@gmail.com
-Password: password
+Example Input<br>
+Username: aaron@gmail.com<br>
+Password: password<br>
 
-Success Output
+Success Output<br>
 {
     "public_id": "e8e1f418-1100-41be-b823-36bc6ad34da1",
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJlOGUxZjQxOC0xMTAwLTQxYmUtYjgyMy0zNmJjNmFkMzRkYTEiLCJleHAiOjE2NDY3OTUzNTl9.OmAmuNAEihwkbLK9w0SIBuXoodbbgsjcoe0iDm_wNC8"
 }
-
-Fail Output
-Username/Email does not exist, please try again
+<br>
+Fail Output<br>
+Username/Email does not exist, please try again<br>
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-<b>Query user's detail:</b>
-Description-> Get current user's detail, only user with authorized token is able to query this data, or else blocked.
+<b>Query user's detail:</b><br>
+Description-> Get current user's detail, only user with authorized token is able to query this data, or else blocked.<br>
 
-Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/user/<PUBLIC_ID>
-Type of request->GET
-Header needed:
-Key: x-access-token
-Value:<TOKEN>
+Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/user/<PUBLIC_ID><br>
+Type of request->GET<br>
+Header needed:<br>
+Key: x-access-token<br>
+Value:<TOKEN><br>
 
-Input (header)
-Key: x-access-token
-Value:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiI2NmQ0Yjg5OS05YTZiLTRlZWItOTM2YS0wMmM2MWEzOGJiM2IiLCJleHAiOjE2NDY3MjA0NTJ9.GiibULsXooDCmV6vcnZ6LlbVJSjb-RYrOe58wvjzy3g
-
-
-Input Route
-http://127.0.0.1:5000/user/e8e1f418-1100-41be-b823-36bc6ad34da1
+Input (header)<br>
+Key: x-access-token<br>
+Value:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiI2NmQ0Yjg5OS05YTZiLTRlZWItOTM2YS0wMmM2MWEzOGJiM2IiLCJleHAiOjE2NDY3MjA0NTJ9.GiibULsXooDCmV6vcnZ6LlbVJSjb-RYrOe58wvjzy3g<br>
 
 
-Success Output
+Input Route<br>
+http://127.0.0.1:5000/user/e8e1f418-1100-41be-b823-36bc6ad34da1<br>
+
+
+Success Output<br>
 {
     "data": {
         "contact_number": 99911122,
@@ -116,29 +116,29 @@ Success Output
         "public_id": "e8e1f418-1100-41be-b823-36bc6ad34da1"
     },
     "message": "User's details have been retrieved successfully"
-}
+}<br>
 
-Fail Output
+Fail Output<br>
 {
     "message": "Token is invalid!"
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-<b>Get Carpark Availability:</b>
+<b>Get Carpark Availability:</b><br>
 Description-> Get carpark availability from an API, only user with authorized token is able to query this data, or else blocked.
-Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/car
-Type of request->GET
-Header needed:
-Key: x-access-token
-Value:<TOKEN>
+Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/car<br>
+Type of request->GET<br>
+Header needed:<br>
+Key: x-access-token<br>
+Value:<TOKEN><br>
 
-Input (header)
-Key: x-access-token
-Value:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiI2NmQ0Yjg5OS05YTZiLTRlZWItOTM2YS0wMmM2MWEzOGJiM2IiLCJleHAiOjE2NDY3MjA0NTJ9.GiibULsXooDCmV6vcnZ6LlbVJSjb-RYrOe58wvjzy3g
+Input (header)<br>
+Key: x-access-token<br>
+Value:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiI2NmQ0Yjg5OS05YTZiLTRlZWItOTM2YS0wMmM2MWEzOGJiM2IiLCJleHAiOjE2NDY3MjA0NTJ9.GiibULsXooDCmV6vcnZ6LlbVJSjb-RYrOe58wvjzy3g<br>
 
 
-Success Output
+Success Output<br>
 {
     "data": {
         "items": [
@@ -157,7 +157,7 @@ Success Output
 .
 
 
-Fail Output
+Fail Output<br>
 {
     "message": "Token is invalid!"
 }
