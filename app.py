@@ -7,10 +7,12 @@ import jwt
 import datetime
 from functools import wraps
 import requests
+import os
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Aaron/Desktop/carpark_availability/carpark.db'
+file_path = os.path.abspath(os.getcwd())+"/carpark.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+file_path
 app.config['SECRET_KEY'] = 'randomsecret'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -179,4 +181,4 @@ def get_car(user):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(debug=True)
