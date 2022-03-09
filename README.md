@@ -54,7 +54,7 @@ Success Output<br>
 {
     "message": "Congrats Aaron! Your account has been created."
 }
-
+<br>
 Fail Output<br>
 {
     "message": "Account creation failed."
@@ -88,7 +88,7 @@ Username/Email does not exist, please try again<br>
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 <b>Query user's detail:</b><br>
-Description-> Get current user's detail, only user with authorized token is able to query this data, or else blocked.<br>
+Description-> Get current user's detail, only user with authorized token is able to query this data, or else blocked. Do note to insert the retrieved PUBLIC_ID from login request and replace it at the route below.<br>
 
 Route to request (for POSTMAN/Frontend)-> http://127.0.0.1:5000/user/<PUBLIC_ID><br>
 Type of request->GET<br>
@@ -99,11 +99,6 @@ Value:-TOKEN-<br>
 Input (header)<br>
 Key: x-access-token<br>
 Value:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiI2NmQ0Yjg5OS05YTZiLTRlZWItOTM2YS0wMmM2MWEzOGJiM2IiLCJleHAiOjE2NDY3MjA0NTJ9.GiibULsXooDCmV6vcnZ6LlbVJSjb-RYrOe58wvjzy3g<br>
-
-
-Input Route<br>
-http://127.0.0.1:5000/user/e8e1f418-1100-41be-b823-36bc6ad34da1<br>
-
 
 Success Output<br>
 {
