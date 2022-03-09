@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"aaron@gmail.com\",\r\n    \"first_name\": \"Aaron\",\r\n    \"last_name\": \"Tan\",\r\n    \"password\": \"password\"\r\n}",
+					"raw": "{\r\n    \"email\": \"aaron@gmail.com\",\r\n    \"first_name\": \"Aaron\",\r\n    \"last_name\": \"Tan\",\r\n    \"password\": \"password\",\r\n    \"contact_number\": 99911122\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,12 +43,12 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJiZTUzZjVmNi01NTU5LTQ1ZTQtOTAxNS0yYmI0OGQ2M2EzY2IiLCJleHAiOjE2NDY3MjAxMTF9.qgGQTuS2eV4lQ4wbty2Ztt_-lwCRnkdmMisK005kzXA",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGcsiOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJlOGUxZjQxOC0xMTAwLTQxYmUtYjgyMy0zNmJjNmFkMzRkYTEiLCJleHAiOjE2NDY3OTUzNTl9.OmAmuNAEihwkbLK9w0SIBuXoodbbgsjcoe0iDm_wNC8",
 						"type": "default"
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:5000/user/be53f5f6-5559-45e4-9015-2bb48d63a3cb",
+					"raw": "http://127.0.0.1:5000/user/e8e1f418-1100-41be-b823-36bc6ad34da1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -59,7 +59,7 @@
 					"port": "5000",
 					"path": [
 						"user",
-						"be53f5f6-5559-45e4-9015-2bb48d63a3cb"
+						"e8e1f418-1100-41be-b823-36bc6ad34da1"
 					]
 				}
 			},
@@ -67,24 +67,36 @@
 		},
 		{
 			"name": "Login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "password",
+							"key": "username",
+							"value": "aaron@gmail.com",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "aaron@gmail.com",
+							"key": "password",
+							"value": "password",
 							"type": "string"
 						}
 					]
 				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/login",
 					"protocol": "http",
@@ -109,7 +121,7 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJiZTUzZjVmNi01NTU5LTQ1ZTQtOTAxNS0yYmI0OGQ2M2EzY2IiLCJleHAiOjE2NDY3MjAxMTF9.qgGQTuS2eV4lQ4wbty2Ztt_-lwCRnkdmMisK005kzXA",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJlOGUxZjQxOC0xMTAwLTQxYmUtYjgyMy0zNmJjNmFkMzRkYTEiLCJleHAiOjE2NDY3OTU5OTV9.-1-2eC1usijbkHE-eN9U9lWJ2CppeJ7GYYk9zHzvBOM",
 						"type": "default"
 					}
 				],
