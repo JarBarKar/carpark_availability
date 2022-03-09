@@ -13,3 +13,14 @@ Database setup:
 Flask setup:
 1) Navigate to the directory where the app.py is stored.
 2) Open terminal and type "python app.py" to launch the Flask app.
+
+
+
+
+Create User
+
+User Login
+
+Query user's detail
+
+Get Carpark Availability
