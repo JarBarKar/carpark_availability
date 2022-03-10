@@ -89,9 +89,38 @@ def token_required(f):
 ### Start of API points for User creation ###
 @app.route("/user", methods=['POST'])
 def create_user():
+    expected = ["email","first_name","last_name","password"]
     data = request.get_json()
+
+    #set default contact number if not inserted
     if "contact_number" not in data.keys():
         data["contact_number"] = None
+    
+    #Check for missing input
+    for key in expected:
+        if key not in data.keys():
+            return jsonify(
+            {
+                "message": f"{key} is not found!"
+            }
+            ), 500
+
+    #Simple email checker
+    if '@' not in data["email"]:
+        return jsonify(
+            {
+                "message": f"@ is not found in email!"
+            }
+            ), 500
+    
+    #Simple password validator
+    if len(data["password"])<8:
+        return jsonify(
+            {
+                "message": f"Password is too short! Please make it 8 characters or more."
+            }
+            ), 500
+    
     try:
         hashed_password = generate_password_hash(data["password"], method="sha256")
         new_user = User(email=data["email"],public_id=str(uuid.uuid4()), first_name=data["first_name"], last_name = data["last_name"],  password=hashed_password, contact_number=data["contact_number"])
@@ -121,7 +150,7 @@ def login_user():
     #Check if user exist in system
     user = User.query.filter_by(email=auth.username).first()
     if not user:
-        return make_response("Username/Email does not exist, please try again", 401, {"WWW-Authenticate": "Basic realm='Login required!'"})
+        return make_response("Username/Email does not exist in the system, please try again", 401, {"WWW-Authenticate": "Basic realm='Login required!'"})
     #Check if password matched
     if check_password_hash(user.password, auth.password):
         #Generate JWT token if password matched
@@ -152,7 +181,7 @@ def query_user(user,public_id):
         ), 200
     return jsonify(
         {
-            "message": "There are no users retrieved"
+            "message": "There is no user retrieved"
         }
     ), 500
 ### End of API points for querying user detail ###

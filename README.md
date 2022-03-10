@@ -4,7 +4,7 @@ Stack used:
 Python Flask (backend) + SQLite3 (DB)
 
 Python/libraries setup:
-1) Install the latest python.
+1) Install the latest python version.
 2) Navigate to the directory where the app.py is stored.
 3) Open terminal and type "pip install -r requirements.txt" to install all the dependencies required.
 

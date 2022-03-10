@@ -1,7 +1,0 @@
-To do tasks:
-
-1) Create requirement.txt file for libraries and dependencies
-
-
-Optional:
-1) Set conditions for invalid input such as no @ in email
